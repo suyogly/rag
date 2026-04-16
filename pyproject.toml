@@ -5,7 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "langchain-community>=0.4.1",
     "matplotlib>=3.10.8",
     "sentence-transformers>=5.4.0",
     "umap-learn>=0.5.12",
+    "unstructured>=0.22.21",
 ]
