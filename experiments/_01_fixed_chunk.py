@@ -51,3 +51,4 @@ content3 = fixed_splitter_overlap.split_documents(docs)
 
 for idx, chunks in enumerate(content3):
     print(f"id: {idx+1} \n chunk: {chunks.page_content} \n -- \n")
+
