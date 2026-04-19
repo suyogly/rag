@@ -2,7 +2,7 @@ from corpus.loader import load_document
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import Document
 from llama_index.core.node_parser import (
-    SentenceSplitter,
+    SentenceSplitter, # yet to know this shit
     SemanticSplitterNodeParser
 )
 
