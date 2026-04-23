@@ -1,7 +1,15 @@
 from sentence_transformers import SentenceTransformer
 
-def BGE_384(data):
-    model = SentenceTransformer("BAAI/bge-small-en-v1.5", device="mps")
-    embeddings = model.encode(data, normalize_embeddings=True)
-    return embeddings
+# singleton pattern to load the model only once
+_model = None
+
+def _get_BGE_model_384():
+    global _model
+    if _model is None:
+        _model = SentenceTransformer("BAAI/bge-small-en-v1.5")
+    return _model
+
+def embed_with_BGE_384(text: str) -> list[float]:
+    model = _get_BGE_model_384()
+    return model.encode(text, normalize_embeddings=True).tolist()
 
