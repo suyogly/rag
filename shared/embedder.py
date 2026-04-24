@@ -9,7 +9,7 @@ def _get_BGE_model_384():
         _model = SentenceTransformer("BAAI/bge-small-en-v1.5")
     return _model
 
-def embed_with_BGE_384(text: str) -> list[float]:
+def embed_with_BGE_384(nodes) -> list[float]:
     model = _get_BGE_model_384()
-    return model.encode(text, normalize_embeddings=True).tolist()
+    return model.encode(nodes, normalize_embeddings=True).tolist()
 
