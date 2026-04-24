@@ -26,6 +26,7 @@ splitter = SemanticSplitterNodeParser(
 )
 
 nodes = splitter.get_nodes_from_documents(docs)
+print(nodes)
 
 for idx, node in enumerate(nodes):
     print(f"id: {idx} \n{node.text}")
