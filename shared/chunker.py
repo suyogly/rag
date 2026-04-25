@@ -10,7 +10,8 @@ from langchain_text_splitters import (
     CharacterTextSplitter
 )
 
-_EMBEDDING_MODEL = HuggingFaceEmbedding("BAAI/bge-small-en-v1.5")
+_EMBEDDING_MODEL = None
+
 lc_doc = load_document()
 
 llama_doc = [
@@ -19,6 +20,12 @@ llama_doc = [
         metadata = doc.metadata
     ) for doc in lc_doc
 ]
+
+def _load_model():
+    global _EMBEDDING_MODEL
+    if _EMBEDDING_MODEL is None:
+        _EMBEDDING_MODEL = HuggingFaceEmbedding("BAAI/bge-small-en-v1.5")
+    return _EMBEDDING_MODEL
 
 def recursive_splitter(chunk_size: int = 500, chunk_overlap: int = 250):
     lc_splitter = RecursiveCharacterTextSplitter(
@@ -45,7 +52,11 @@ def fixed_splitter(chunk_size: int = 250, chunk_overlap: int = 0, sepr: str = "\
     )       
     return nodes
 
-def semantic_splitter(buffer_size: int = 1, bep_thres: int = 95, embed_model: str | object = _EMBEDDING_MODEL):
+def semantic_splitter(buffer_size: int = 1, bep_thres: int = 95, embed_model: str | object = None):
+    
+    if embed_model is None:
+        embed_model = _load_model()
+        
     splitter = SemanticSplitterNodeParser(
     buffer_size=buffer_size, 
     breakpoint_percentile_threshold=bep_thres, 
