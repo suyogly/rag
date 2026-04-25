@@ -1,4 +1,5 @@
 from corpus.loader import load_document
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core.node_parser import (
     SemanticSplitterNodeParser,
     LangchainNodeParser
@@ -8,8 +9,6 @@ from langchain_text_splitters import (
     RecursiveCharacterTextSplitter,
     CharacterTextSplitter
 )
-from shared.embedder import embed_with_BGE_384
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
 _EMBEDDING_MODEL = HuggingFaceEmbedding("BAAI/bge-small-en-v1.5")
 lc_doc = load_document()
