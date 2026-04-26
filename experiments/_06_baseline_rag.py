@@ -7,6 +7,7 @@ from llama_index.core.node_parser import (
     LangchainNodeParser,
 )
 from shared.qdrant_client import create_qdrant_collection, ingest_vectors, dense_retrieval
+from shared.llm_client import generate_answer
 
 
 lc_doc = load_document()
@@ -39,7 +40,14 @@ print(_COLLECTION_NAME)
 ingest = ingest_vectors(collection_name="naive", nodes=nodes)
 print(ingest)
 
-query = "what is your name?"
+query = "how is nepal in the state of identity negotiation?"
 
-res = dense_retrieval(query=query, collection_name="naive")
-print(res)
+retrieved_result = dense_retrieval(query=query, collection_name="naive")
+
+response = generate_answer(query=query, results=retrieved_result)
+print(response)
+print("\n---\n")
+
+for idx, res in enumerate(retrieved_result):
+    print(f"RETRIEVED CHUNKS: \n\nid: {idx} \n{res.payload['text']} \nscore: {res.score}")
+    print("\n---\n")
